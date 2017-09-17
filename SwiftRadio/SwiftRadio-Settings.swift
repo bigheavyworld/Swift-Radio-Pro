@@ -22,8 +22,8 @@ let kDebugLog = true
 // If this is set to "true", it will use the JSON file in the app
 // Set it to "false" to use the JSON file at the stationDataURL
 
-let useLocalStations = true
-let stationDataURL   = "http://yoururl.com/json/stations.json"
+let useLocalStations = false
+let stationDataURL   = "https://www.bigheavyworld.com/public/wp-content/stations.json"
 
 //**************************************
 // SEARCH BAR
@@ -38,11 +38,11 @@ let searchable = true
 
 // Use LastFM or iTunes API
 // set to "false" to use iTunes
-let useLastFM = true
+let useLastFM = false
 
 // IF YOU USE LASTFM, PLEASE USE YOUR OWN KEY
 // Visit: http://www.last.fm/api
 
-let apiKey    = "9a267c245324cfa4f887366d497d3dd3"
-let apiSecret = "f1191864d7ae71e580b89238129768b8"
+let apiKey    = ""
+let apiSecret = ""
 
