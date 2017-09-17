@@ -14,15 +14,15 @@ class DataManager {
     // Helper class to get either local or remote JSON
     //*****************************************************************
     
-    class func getStationDataWithSuccess(success: @escaping ((_ metaData: Data?) -> Void)) {
+    class func getStationDataWithSuccess(_ success: @escaping ((_ metaData: Data?) -> Void)) {
 
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .background).async {
             if useLocalStations {
                 getDataFromFileWithSuccess() { data in
                     success(data)
                 }
             } else {
-                loadDataFromURL(url: URL(string: stationDataURL)!) { data, error in
+                loadDataFromURL(URL(string: stationDataURL)!) { data, error in
                     if let urlData = data {
                         success(urlData)
                     }
@@ -35,12 +35,12 @@ class DataManager {
     // Load local JSON Data
     //*****************************************************************
     
-    class func getDataFromFileWithSuccess(success: (_ data: Data) -> Void) {
+    class func getDataFromFileWithSuccess(_ success: (_ data: Data) -> Void) {
         
         if let filePath = Bundle.main.path(forResource: "stations", ofType:"json") {
             do {
-                let data = try NSData(contentsOfFile:filePath,
-                    options: NSData.ReadingOptions.uncached) as Data
+                let data = try Data(contentsOf: URL(fileURLWithPath: filePath),
+                    options: NSData.ReadingOptions.uncached)
                 success(data)
             } catch {
                 fatalError()
@@ -54,9 +54,9 @@ class DataManager {
     // Get LastFM/iTunes Data
     //*****************************************************************
     
-    class func getTrackDataWithSuccess(queryURL: String, success: @escaping ((_ metaData: Data?) -> Void)) {
+    class func getTrackDataWithSuccess(_ queryURL: String, success: @escaping ((_ metaData: Data?) -> Void)) {
 
-        loadDataFromURL(url: URL(string: queryURL)!) { data, _ in
+        loadDataFromURL(URL(string: queryURL)!) { data, _ in
             // Return Data
             if let urlData = data {
                 success(urlData)
@@ -70,7 +70,7 @@ class DataManager {
     // REUSABLE DATA/API CALL METHOD
     //*****************************************************************
     
-    class func loadDataFromURL(url: URL, completion:@escaping (_ data: Data?, _ error: Error?) -> Void) {
+    class func loadDataFromURL(_ url: URL, completion:@escaping (_ data: Data?, _ error: NSError?) -> Void) {
         
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.allowsCellularAccess          = true
@@ -81,9 +81,9 @@ class DataManager {
         let session = URLSession(configuration: sessionConfig)
         
         // Use NSURLSession to get data from an NSURL
-        let loadDataTask = session.dataTask(with: url){ data, response, error in
+        let loadDataTask = session.dataTask(with: url, completionHandler: { data, response, error in
             if let responseError = error {
-                completion(nil, responseError)
+                completion(nil, responseError as NSError?)
                 
                 if kDebugLog { print("API ERROR: \(error)") }
                 
@@ -104,7 +104,7 @@ class DataManager {
                     completion(data, nil)
                 }
             }
-        }
+        })
         
         loadDataTask.resume()
     }

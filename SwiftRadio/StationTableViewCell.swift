@@ -25,7 +25,7 @@ class StationTableViewCell: UITableViewCell {
         selectedBackgroundView  = selectedView
     }
 
-    func configureStationCell(station: RadioStation) {
+    func configureStationCell(_ station: RadioStation) {
         
         // Configure the cell...
         stationNameLabel.text = station.stationName

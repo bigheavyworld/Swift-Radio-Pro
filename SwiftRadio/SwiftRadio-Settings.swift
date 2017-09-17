@@ -6,6 +6,13 @@
 //  Copyright (c) 2015 MatthewFecher.com. All rights reserved.
 //
 
+
+enum CoverApi : String {
+    case iTunes = "iTunes"
+    case lastFm = "LastFm"
+    case spotify = "Spotify"
+}
+
 import Foundation
 
 //**************************************
@@ -30,19 +37,20 @@ let stationDataURL   = "https://www.bigheavyworld.com/public/wp-content/stations
 //**************************************
 
 // Set this to "true" to enable the search bar
-let searchable = true
+let searchable = false
 
 //**************************************
 // LASTFM API
 //**************************************
 
-// Use LastFM or iTunes API
-// set to "false" to use iTunes
+// Use LastFM, iTunes API or Spotify API 
+// Spotify has use restrictions, please read https://developer.spotify.com/developer-terms-of-use/
+let coverApi = CoverApi.lastFm
 let useLastFM = false
 
 // IF YOU USE LASTFM, PLEASE USE YOUR OWN KEY
 // Visit: http://www.last.fm/api
 
-let apiKey    = ""
-let apiSecret = ""
+let lastFmApiKey    = ""
+let lastFmApiSecret = ""
 

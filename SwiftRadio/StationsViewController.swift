@@ -25,6 +25,10 @@ class StationsViewController: UIViewController {
     var searchedStations = [RadioStation]()
     var searchController : UISearchController!
     
+    var controllersDict = [String:Any]()
+    
+    var lastIndexPath : IndexPath!
+    
     //*****************************************************************
     // MARK: - ViewDidLoad
     //*****************************************************************
@@ -195,7 +199,7 @@ class StationsViewController: UIViewController {
             if let stationArray = json["station"].array {
                 
                 for stationJSON in stationArray {
-                    let station = RadioStation.parseStation(stationJSON: stationJSON)
+                    let station = RadioStation.parseStation(stationJSON)
                     self.stations.append(station)
                 }
                 
@@ -306,17 +310,17 @@ extension StationsViewController: UITableViewDataSource {
             
             // Configure the cell...
             let station = stations[indexPath.row]
-            cell.configureStationCell(station: station)
+            cell.configureStationCell(station)
             
             // The UISeachController is active
             if searchController.isActive {
                 let station = searchedStations[indexPath.row]
-                cell.configureStationCell(station: station)
+                cell.configureStationCell(station)
                 
             // The UISeachController is not active
             } else {
                 let station = stations[indexPath.row]
-                cell.configureStationCell(station: station)
+                cell.configureStationCell(station)
             }
             
             return cell
@@ -352,18 +356,18 @@ extension StationsViewController: UITableViewDelegate {
 
 extension StationsViewController: NowPlayingViewControllerDelegate {
     
-    func artworkDidUpdate(track: Track) {
+    func artworkDidUpdate(_ track: Track) {
         currentTrack?.artworkURL = track.artworkURL
         currentTrack?.artworkImage = track.artworkImage
     }
     
-    func songMetaDataDidUpdate(track: Track) {
+    func songMetaDataDidUpdate(_ track: Track) {
         currentTrack = track
         let title = currentStation!.stationName + ": " + currentTrack!.title + " - " + currentTrack!.artist + "..."
         stationNowPlayingButton.setTitle(title, for: .normal)
     }
     
-    func trackPlayingToggled(track: Track) {
+    func trackPlayingToggled(_ track: Track) {
         currentTrack?.isPlaying = track.isPlaying
     }
 
