@@ -78,7 +78,7 @@ class StationsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.title = "Swift Radio"
+        self.title = "The Radiator"
         
         // If a station has been selected, create "Now Playing" button to get back to current station
         if !firstTime {

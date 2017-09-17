@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -353,7 +353,7 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = matthewfecher.com;
+				ORGANIZATIONNAME = bigheavyworld.com;
 				TargetAttributes = {
 					2C5545B91C1124DE00728469 = {
 						CreatedOnToolsVersion = 7.1;
@@ -372,7 +372,7 @@
 				};
 			};
 			buildConfigurationList = 9409E1111ABF6FE900312E2B /* Build configuration list for PBXProject "SwiftRadio" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -625,13 +625,14 @@
 					"$(PROJECT_DIR)/SwiftRadio",
 				);
 				INFOPLIST_FILE = SwiftRadio/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewfecher.SwiftRadio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigheavyworld.SwiftRadio;
 				PRODUCT_NAME = SwiftRadio;
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -649,13 +650,14 @@
 					"$(PROJECT_DIR)/SwiftRadio",
 				);
 				INFOPLIST_FILE = SwiftRadio/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewfecher.SwiftRadio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigheavyworld.SwiftRadio;
 				PRODUCT_NAME = SwiftRadio;
 				PROVISIONING_PROFILE = "";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -12,7 +12,7 @@ class SwiftRadioUITests: XCTestCase {
     
     let app = XCUIApplication()
     let stations = XCUIApplication().cells
-    let hamburgerMenu = XCUIApplication().navigationBars["Swift Radio"].buttons["icon hamburger"]
+    let hamburgerMenu = XCUIApplication().navigationBars["The Radiator"].buttons["icon hamburger"]
     let pauseButton = XCUIApplication().buttons["btn pause"]
     let playButton = XCUIApplication().buttons["btn play"]
     let volume = XCUIApplication().sliders.element(boundBy: 0)
@@ -124,7 +124,7 @@ class SwiftRadioUITests: XCTestCase {
         assertPlaying()
         app.navigationBars["Sub Pop Radio"].buttons["Back"].tap()
         assertStationOnMenu(stationName)
-        app.navigationBars["Swift Radio"].buttons["btn nowPlaying"].tap()
+        app.navigationBars["The Radiator"].buttons["btn nowPlaying"].tap()
         waitForStationToLoad()
         volume.adjust(toNormalizedSliderPosition: 0.2)
         volume.adjust(toNormalizedSliderPosition: 0.8)
