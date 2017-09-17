@@ -112,6 +112,9 @@ class NowPlayingViewController: UIViewController {
         // Setup slider
         setupVolumeSlider()
         
+        // Use hardware volume buttons
+        listenVolumeButton()
+        
     }
     
     func didBecomeActiveNotificationReceived() {
@@ -607,5 +610,37 @@ class NowPlayingViewController: UIViewController {
         let searchURL : URL = URL(string: urlStr!)!
         activity.webpageURL = searchURL
         super.updateUserActivityState(activity)
+    }
+    
+    //****************************************************************
+    // Hardware Volume Buttons
+    //****************************************************************
+    
+    func listenVolumeButton(){
+        let audioSession = AVAudioSession.sharedInstance()
+        do{
+            try audioSession.setActive(true)
+            let vol = audioSession.outputVolume
+            print(vol.description) //gets initial volume
+        }
+        catch{
+            print("Error info: \(error)")
+        }
+        audioSession.addObserver(self, forKeyPath: "outputVolume", options:
+            NSKeyValueObservingOptions.new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "outputVolume"{
+            let volume = (change?[NSKeyValueChangeKey.newKey] as!
+                NSNumber).floatValue
+            print("volume " + volume.description)
+            slider?.value = volume
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let audioSession = AVAudioSession.sharedInstance()
+        audioSession.removeObserver(self, forKeyPath: "outputVolume")
     }
 }
