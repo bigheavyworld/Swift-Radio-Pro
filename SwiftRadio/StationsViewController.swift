@@ -67,7 +67,7 @@ class StationsViewController: UIViewController {
             success = false
         }
         if !success {
-            if kDebugLog { print("Failed to set audio session category.  Error: \(error)") }
+            if kDebugLog { print("Failed to set audio session category.  Error: \(String(describing: error))") }
         }
         
         // Set audioSession as active
