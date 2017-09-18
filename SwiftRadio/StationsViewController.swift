@@ -214,7 +214,9 @@ class StationsViewController: UIViewController {
             }
             
             // Turn off network indicator in status bar
+            DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
         }
     }
     

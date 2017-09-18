@@ -103,6 +103,11 @@ class NowPlayingViewController: UIViewController {
         // Use hardware volume buttons
         listenVolumeButton()
         
+        // Turn off network indicator in status bar
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        
     }
     
     func didBecomeActiveNotificationReceived() {
@@ -209,6 +214,7 @@ class NowPlayingViewController: UIViewController {
         
         // Update StationsVC
         self.delegate?.trackPlayingToggled(self.track)
+        
     }
     
     @IBAction func pausePressed() {
@@ -383,7 +389,7 @@ class NowPlayingViewController: UIViewController {
     // Call LastFM or iTunes API to get album art url
     
     func queryAlbumArt() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         // Construct either LastFM or iTunes API call URL
         let queryURL: String
         
