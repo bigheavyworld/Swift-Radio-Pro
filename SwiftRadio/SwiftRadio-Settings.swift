@@ -45,7 +45,7 @@ let searchable = false
 
 // Use LastFM, iTunes API or Spotify API 
 // Spotify has use restrictions, please read https://developer.spotify.com/developer-terms-of-use/
-let coverApi = CoverApi.lastFm
+let coverApi = CoverApi.iTunes
 let useLastFM = false
 
 // IF YOU USE LASTFM, PLEASE USE YOUR OWN KEY

@@ -73,8 +73,9 @@ class SwiftRadioUITests: XCTestCase {
     
     func assertStationOnMenu(_ stationName:String) {
         let button = app.buttons["nowPlaying"];
-        if let value:String = button.label {
-            XCTAssertTrue(value.contains(stationName))
+        let label:String = button.label
+        if label != "" {
+            XCTAssertTrue(label.contains(stationName))
         } else {
             XCTAssertTrue(false)
         }

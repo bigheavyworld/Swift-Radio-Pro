@@ -36,15 +36,15 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var slider = UISlider()
     
-    var currentStation: RadioStation!
-    var downloadTask: URLSessionDownloadTask?
-    var iPhone4 = false
-    var justBecameActive = false
-    var newStation = true
-    var nowPlayingImageView: UIImageView!
-    var radioPlayer: AVPlayer!
+    @objc var currentStation: RadioStation!
+    @objc var downloadTask: URLSessionDownloadTask?
+    @objc var iPhone4 = false
+    @objc var justBecameActive = false
+    @objc var newStation = true
+    @objc var nowPlayingImageView: UIImageView!
+    @objc var radioPlayer: AVPlayer!
     var track: Track!
-    var mpVolumeSlider = UISlider()
+    @objc var mpVolumeSlider = UISlider()
     
     weak var delegate: NowPlayingViewControllerDelegate?
     
@@ -68,6 +68,7 @@ class NowPlayingViewController: UIViewController {
         createNowPlayingAnimation()
         
         setUpPlayer()
+        
         
         // Notification for when app becomes active
         NotificationCenter.default.addObserver(self,
@@ -128,7 +129,7 @@ class NowPlayingViewController: UIViewController {
     //*****************************************************************
     
     
-    func setUpPlayer(){
+    @objc func setUpPlayer(){
         radioPlayer = Player.radio
         radioPlayer.rate = 1
         NotificationCenter.default.addObserver(
@@ -140,13 +141,13 @@ class NowPlayingViewController: UIViewController {
         
     }
     
-    func resetPlayer(){
+    @objc func resetPlayer(){
         if radioPlayer != nil {
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.radioPlayer.currentItem)
         }
     }
     
-    func setupVolumeSlider() {
+    @objc func setupVolumeSlider() {
         // Note: This slider implementation uses a MPVolumeView
         // The volume slider only works in devices, not the simulator.
         volumeParentView.backgroundColor = UIColor.clear
@@ -162,7 +163,7 @@ class NowPlayingViewController: UIViewController {
         slider?.setThumbImage(thumbImageNormal, for: UIControlState())
     }
     
-    func stationDidChange() {
+    @objc func stationDidChange() {
         resetPlayer()
         
         guard let streamURL = URL(string: currentStation.stationStreamURL) else {
@@ -235,7 +236,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - UI Helper Methods
     //*****************************************************************
     
-    func optimizeForDeviceSize() {
+    @objc func optimizeForDeviceSize() {
         // Adjust album size to fit iPhone 4s, 6s & 6s+
         let deviceHeight = self.view.bounds.height
         
@@ -252,7 +253,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    func updateLabels(_ statusMessage: String = "") {
+    @objc func updateLabels(_ statusMessage: String = "") {
         if statusMessage != "" {
             // There's a an interruption or pause in the audio queue
             songLabel.text = statusMessage
@@ -275,7 +276,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    func playButtonEnable(_ enabled: Bool = true) {
+    @objc func playButtonEnable(_ enabled: Bool = true) {
         if enabled {
             playButton.isEnabled = true
             pauseButton.isEnabled = false
@@ -287,7 +288,7 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
-    func createNowPlayingAnimation() {
+    @objc func createNowPlayingAnimation() {
         
         // Setup ImageView
         nowPlayingImageView = UIImageView(image: UIImage(named: "NowPlayingBars-3"))
@@ -309,22 +310,26 @@ class NowPlayingViewController: UIViewController {
         
     }
     
-    func startNowPlayingAnimation() {
-        nowPlayingImageView.startAnimating()
+    @objc func startNowPlayingAnimation() {
+        DispatchQueue.main.async { [unowned self] in
+            self.nowPlayingImageView.startAnimating()
+        }
     }
     
     //*****************************************************************
     // MARK: - Album Art
     //*****************************************************************
     
-    func resetAlbumArtwork() {
+    @objc func resetAlbumArtwork() {
         track.artworkLoaded = false
         track.artworkURL = currentStation.stationImageURL
-        updateAlbumArtwork()
-        stationDescLabel.isHidden = false
+        DispatchQueue.main.async { [unowned self] in
+            self.updateAlbumArtwork()
+            self.stationDescLabel.isHidden = false
+        }
     }
     
-    func updateAlbumArtwork() {
+    @objc func updateAlbumArtwork() {
         track.artworkLoaded = false
         if track.artworkURL.range(of: "http") != nil {
             
@@ -344,19 +349,23 @@ class NowPlayingViewController: UIViewController {
                     self.track.artworkLoaded = true
                     
                     // Turn off network activity indicator
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    }
                     
                     // Animate artwork
                     self.albumImageView.animation = "wobble"
                     self.albumImageView.duration = 2
-                    self.albumImageView.animate()
-                    self.stationDescLabel.isHidden = true
-                    
-                    // Update lockscreen
-                    self.updateLockScreen()
-                    
-                    // Call delegate function that artwork updated
-                    self.delegate?.artworkDidUpdate(self.track)
+                    DispatchQueue.main.async {
+                        self.albumImageView.animate()
+                        self.stationDescLabel.isHidden = true
+                        
+                        // Update lockscreen
+                        self.updateLockScreen()
+                        
+                        // Call delegate function that artwork updated
+                        self.delegate?.artworkDidUpdate(self.track)
+                    }
                 }
             }
             
@@ -382,13 +391,17 @@ class NowPlayingViewController: UIViewController {
         }
         
         // Force app to update display
-        self.view.setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.view.setNeedsDisplay()
+        }
     }
     
     // Call LastFM or iTunes API to get album art url
     
-    func queryAlbumArt() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    @objc func queryAlbumArt() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         // Construct either LastFM or iTunes API call URL
         let queryURL: String
         
@@ -501,7 +514,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - MPNowPlayingInfoCenter (Lock screen)
     //*****************************************************************
     
-    func updateLockScreen() {
+    @objc func updateLockScreen() {
         // Update notification/lock screen
         let albumArtwork = MPMediaItemArtwork(image: track.artworkImage!)
         
@@ -564,7 +577,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - Handoff Functionality - GH
     //*****************************************************************
     
-    func setupUserActivity() {
+    @objc func setupUserActivity() {
         let activity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb ) //"com.graemeharrison.handoff.googlesearch" //NSUserActivityTypeBrowsingWeb
         userActivity = activity
         let url = "https://www.google.com/search?q=\(self.artistLabel.text!)+\(self.songLabel.text!)"
@@ -599,7 +612,7 @@ class NowPlayingViewController: UIViewController {
 //*****************************************************************
 
 extension NowPlayingViewController: CustomAVPlayerItemDelegate {
-    func onMetaData(_ metaData: [AVMetadataItem]?) {
+    @objc func onMetaData(_ metaData: [AVMetadataItem]?) {
         if let metaDatas = metaData{
             startNowPlayingAnimation()
             let firstMeta: AVMetadataItem = metaDatas.first!
