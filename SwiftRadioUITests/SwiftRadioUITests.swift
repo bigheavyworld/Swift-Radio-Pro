@@ -12,7 +12,7 @@ class SwiftRadioUITests: XCTestCase {
     
     let app = XCUIApplication()
     let stations = XCUIApplication().cells
-    let hamburgerMenu = XCUIApplication().navigationBars["The Radiator"].buttons["icon hamburger"]
+    let hamburgerMenu = XCUIApplication().navigationBars["The Radiator"].children(matching: .button).element
     let pauseButton = XCUIApplication().buttons["btn pause"]
     let playButton = XCUIApplication().buttons["btn play"]
     let volume = XCUIApplication().sliders.element(boundBy: 0)
@@ -43,7 +43,7 @@ class SwiftRadioUITests: XCTestCase {
     }
     
     func assertStationsPresent() {
-        let numStations:UInt = 4
+        let numStations:UInt = 2
         XCTAssertEqual(stations.count, Int(numStations))
         
         let texts = stations.staticTexts.count
@@ -51,12 +51,12 @@ class SwiftRadioUITests: XCTestCase {
     }
     
     func assertHamburgerContent() {
-        XCTAssertTrue(app.staticTexts["Created by: Matthew Fecher"].exists)
+        XCTAssertTrue(app.staticTexts["Based on Swift Radio Pro"].exists)
     }
     
     func assertAboutContent() {
         XCTAssertTrue(app.buttons["email me"].exists)
-        XCTAssertTrue(app.buttons["matthewfecher.com"].exists)
+        XCTAssertTrue(app.buttons["bigheavyworld.com"].exists)
     }
     
     func assertPaused() {
