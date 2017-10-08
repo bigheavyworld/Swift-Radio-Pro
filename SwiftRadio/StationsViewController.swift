@@ -11,7 +11,7 @@ import MediaPlayer
 import AVFoundation
 
 class StationsViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stationNowPlayingButton: UIButton!
     @IBOutlet weak var nowPlayingAnimationImageView: UIImageView!
@@ -67,7 +67,7 @@ class StationsViewController: UIViewController {
             success = false
         }
         if !success {
-            if kDebugLog { print("Failed to set audio session category.  Error: \(String(describing: error))") }
+            if kDebugLog { print("Failed to set audio session category.  Error: \(error!)") }
         }
         
         // Set audioSession as active
@@ -100,14 +100,14 @@ class StationsViewController: UIViewController {
         }
         
     }
-
+    
     //*****************************************************************
     // MARK: - Setup UI Elements
     //*****************************************************************
     
     func setupPullToRefresh() {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSForegroundColorAttributeName:UIColor.white])
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor:UIColor.white])
         self.refreshControl.backgroundColor = UIColor.black
         self.refreshControl.tintColor = UIColor.white
         self.refreshControl.addTarget(self, action: #selector(StationsViewController.refresh), for: UIControlEvents.valueChanged)
@@ -153,14 +153,14 @@ class StationsViewController: UIViewController {
             let searchTextField = searchController.searchBar.value(forKey: "_searchField") as! UITextField
             searchTextField.keyboardAppearance = UIKeyboardAppearance.dark
         }
-
+        
     }
     
     //*****************************************************************
     // MARK: - Actions
     //*****************************************************************
     
-    func nowPlayingBarButtonPressed() {
+    @objc func nowPlayingBarButtonPressed() {
         performSegue(withIdentifier: "NowPlaying", sender: self)
     }
     
@@ -168,7 +168,7 @@ class StationsViewController: UIViewController {
         performSegue(withIdentifier: "NowPlaying", sender: self)
     }
     
-    func refresh(sender: AnyObject) {
+    @objc func refresh(sender: AnyObject) {
         // Pull to Refresh
         stations.removeAll(keepingCapacity: false)
         loadStationsFromJSON()
@@ -194,7 +194,7 @@ class StationsViewController: UIViewController {
             
             if kDebugLog { print("Stations JSON Found") }
             
-            let json = JSON(data: data! as Data)
+            let json = try! JSON(data: data! as Data)
             
             if let stationArray = json["station"].array {
                 
@@ -215,7 +215,7 @@ class StationsViewController: UIViewController {
             
             // Turn off network indicator in status bar
             DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         }
     }
@@ -242,7 +242,7 @@ class StationsViewController: UIViewController {
                 }
                 nowPlayingVC.currentStation = currentStation
                 nowPlayingVC.newStation = true
-            
+                
             } else {
                 // User clicked on a now playing button
                 if let currentTrack = currentTrack {
@@ -282,7 +282,7 @@ extension StationsViewController: UITableViewDataSource {
         if searchController.isActive {
             return searchedStations.count
             
-        // The UISeachController is not active
+            // The UISeachController is not active
         } else {
             if stations.count == 0 {
                 return 1
@@ -295,7 +295,7 @@ extension StationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if stations.isEmpty {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NothingFound", for: indexPath) 
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NothingFound", for: indexPath)
             cell.backgroundColor = UIColor.clear
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             return cell
@@ -319,7 +319,7 @@ extension StationsViewController: UITableViewDataSource {
                 let station = searchedStations[indexPath.row]
                 cell.configureStationCell(station)
                 
-            // The UISeachController is not active
+                // The UISeachController is not active
             } else {
                 let station = stations[indexPath.row]
                 cell.configureStationCell(station)
@@ -372,7 +372,7 @@ extension StationsViewController: NowPlayingViewControllerDelegate {
     func trackPlayingToggled(_ track: Track) {
         currentTrack?.isPlaying = track.isPlaying
     }
-
+    
 }
 
 //*****************************************************************
@@ -380,23 +380,24 @@ extension StationsViewController: NowPlayingViewControllerDelegate {
 //*****************************************************************
 
 extension StationsViewController: UISearchResultsUpdating {
-
-    func updateSearchResults(for searchController: UISearchController) {
     
+    func updateSearchResults(for searchController: UISearchController) {
+        
         // Empty the searchedStations array
         searchedStations.removeAll(keepingCapacity: false)
-    
+        
         // Create a Predicate
         let searchPredicate = NSPredicate(format: "SELF.stationName CONTAINS[c] %@", searchController.searchBar.text!)
-    
+        
         // Create an NSArray with a Predicate
         let array = (self.stations as NSArray).filtered(using: searchPredicate)
-    
+        
         // Set the searchedStations with search result array
         searchedStations = array as! [RadioStation]
-    
+        
         // Reload the tableView
         self.tableView.reloadData()
     }
     
 }
+

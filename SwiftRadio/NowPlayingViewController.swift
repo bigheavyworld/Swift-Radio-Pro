@@ -69,7 +69,6 @@ class NowPlayingViewController: UIViewController {
         
         setUpPlayer()
         
-        
         // Notification for when app becomes active
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(NowPlayingViewController.didBecomeActiveNotificationReceived),
@@ -110,7 +109,7 @@ class NowPlayingViewController: UIViewController {
         
     }
     
-    func didBecomeActiveNotificationReceived() {
+    @objc func didBecomeActiveNotificationReceived() {
         // View became active
         updateLabels()
         justBecameActive = true
@@ -408,13 +407,13 @@ class NowPlayingViewController: UIViewController {
         let escapedURL = queryURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         // Query API
-        DataManager.getTrackDataWithSuccess(escapedURL!) { (data) in
+        DataManager.getTrackDataWithSuccess(queryURL: escapedURL!) { (data) in
             if kDebugLog {
                 print("API SUCCESSFUL RETURN")
                 print("url: \(escapedURL!)")
             }
             
-            let json = JSON(data: data!)
+            let json = try! JSON(data: data! as Data)
             
             switch coverApi {
             case .lastFm:
@@ -543,7 +542,7 @@ class NowPlayingViewController: UIViewController {
     //*****************************************************************
     
     // Example code on handling AVAudio interruptions (e.g. Phone calls)
-    func sessionInterrupted(_ notification: Notification) {
+    @objc func sessionInterrupted(_ notification: Notification) {
         if let typeValue = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? NSNumber{
             if let type = AVAudioSessionInterruptionType(rawValue: typeValue.uintValue){
                 if type == .began {
@@ -588,7 +587,7 @@ class NowPlayingViewController: UIViewController {
     // MARK: - Detect end of mp3 in case you're using a file instead of a stream
     //*****************************************************************
     
-    func playerItemDidReachEnd(){
+    @objc func playerItemDidReachEnd(){
         if kDebugLog {
             print("playerItemDidReachEnd")
         }
@@ -652,7 +651,7 @@ extension NowPlayingViewController: CustomAVPlayerItemDelegate {
                 }
                 self.artistLabel.text = self.track.artist
                 self.songLabel.text = self.track.title
-
+                
             }
         }
     }
@@ -661,31 +660,32 @@ extension NowPlayingViewController: CustomAVPlayerItemDelegate {
     // Hardware Volume Buttons
     //****************************************************************
     
-//    func listenVolumeButton(){
-//        let audioSession = AVAudioSession.sharedInstance()
-//        do{
-//            try audioSession.setActive(true)
-//            let vol = audioSession.outputVolume
-//            print(vol.description) //gets initial volume
-//        }
-//        catch{
-//            print("Error info: \(error)")
-//        }
-//        audioSession.addObserver(self, forKeyPath: "outputVolume", options:
-//            NSKeyValueObservingOptions.new, context: nil)
-//    }
-//    
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        if keyPath == "outputVolume"{
-//            let volume = (change?[NSKeyValueChangeKey.newKey] as!
-//                NSNumber).floatValue
-//            print("volume " + volume.description)
-//            slider?.value = volume
-//        }
-//    }
-//    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        let audioSession = AVAudioSession.sharedInstance()
-//        audioSession.removeObserver(self, forKeyPath: "outputVolume")
-//    }
+    //    func listenVolumeButton(){
+    //        let audioSession = AVAudioSession.sharedInstance()
+    //        do{
+    //            try audioSession.setActive(true)
+    //            let vol = audioSession.outputVolume
+    //            print(vol.description) //gets initial volume
+    //        }
+    //        catch{
+    //            print("Error info: \(error)")
+    //        }
+    //        audioSession.addObserver(self, forKeyPath: "outputVolume", options:
+    //            NSKeyValueObservingOptions.new, context: nil)
+    //    }
+    //
+    //    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    //        if keyPath == "outputVolume"{
+    //            let volume = (change?[NSKeyValueChangeKey.newKey] as!
+    //                NSNumber).floatValue
+    //            print("volume " + volume.description)
+    //            slider?.value = volume
+    //        }
+    //    }
+    //
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        let audioSession = AVAudioSession.sharedInstance()
+    //        audioSession.removeObserver(self, forKeyPath: "outputVolume")
+    //    }
 }
+
