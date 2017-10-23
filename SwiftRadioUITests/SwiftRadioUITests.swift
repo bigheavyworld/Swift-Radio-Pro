@@ -92,7 +92,7 @@ class SwiftRadioUITests: XCTestCase {
     
     func waitForStationToLoad() {
         self.expectation(
-            for: NSPredicate(format: "exists == 0"),
+            for: NSPredicate(format: "exists == true"),
             evaluatedWith: app.staticTexts["Loading Station..."],
             handler: nil)
         self.waitForExpectations(timeout: 25.0, handler: nil)
@@ -123,7 +123,7 @@ class SwiftRadioUITests: XCTestCase {
         assertPaused()
         playButton.tap()
         assertPlaying()
-        app.navigationBars["Sub Pop Radio"].buttons["Back"].tap()
+        app.navigationBars["The Radiator"].buttons["Back"].tap()
         assertStationOnMenu(stationName)
         app.navigationBars["The Radiator"].buttons["btn nowPlaying"].tap()
         waitForStationToLoad()
