@@ -69,7 +69,6 @@ class NowPlayingViewController: UIViewController {
         
         setUpPlayer()
         
-        
         // Notification for when app becomes active
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(NowPlayingViewController.didBecomeActiveNotificationReceived),
@@ -230,6 +229,14 @@ class NowPlayingViewController: UIViewController {
     
     @IBAction func volumeChanged(_ sender:UISlider) {
         mpVolumeSlider.value = sender.value
+    }
+    
+    @objc func togglePlayPause() {
+        if track.isPlaying {
+            pausePressed()
+        } else {
+            playPressed()
+        }
     }
     
     //*****************************************************************
@@ -532,6 +539,8 @@ class NowPlayingViewController: UIViewController {
         MPRemoteCommandCenter.shared().playCommand.addTarget(self, action: #selector(playPressed))
         MPRemoteCommandCenter.shared().pauseCommand.isEnabled = true
         MPRemoteCommandCenter.shared().pauseCommand.addTarget(self, action: #selector(pausePressed))
+        MPRemoteCommandCenter.shared().togglePlayPauseCommand.isEnabled = true
+        MPRemoteCommandCenter.shared().togglePlayPauseCommand.addTarget(self, action: #selector(togglePlayPause))
     }
     
     override func remoteControlReceived(with receivedEvent: UIEvent?) {
