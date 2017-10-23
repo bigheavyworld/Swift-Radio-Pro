@@ -102,6 +102,9 @@ class NowPlayingViewController: UIViewController {
         // Use hardware volume buttons
         //listenVolumeButton()
         
+        // Start NowPlaying Animation
+        nowPlayingImageView.startAnimating()
+        
         // Turn off network indicator in status bar
         DispatchQueue.main.async {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
