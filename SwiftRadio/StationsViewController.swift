@@ -11,22 +11,22 @@ import MediaPlayer
 import AVFoundation
 
 class StationsViewController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stationNowPlayingButton: UIButton!
     @IBOutlet weak var nowPlayingAnimationImageView: UIImageView!
     
-    @objc var stations = [RadioStation]()
-    @objc var currentStation: RadioStation?
+    var stations = [RadioStation]()
+    var currentStation: RadioStation?
     var currentTrack: Track?
-    @objc var refreshControl: UIRefreshControl!
-    @objc var firstTime = true
+    var refreshControl: UIRefreshControl!
+    var firstTime = true
     
-    @objc var searchedStations = [RadioStation]()
-    @objc var searchController : UISearchController!
+    var searchedStations = [RadioStation]()
+    var searchController : UISearchController!
     
     @objc var controllersDict = [String:Any]()
-    
+
     @objc var lastIndexPath : IndexPath!
     
     //*****************************************************************
@@ -67,7 +67,11 @@ class StationsViewController: UIViewController {
             success = false
         }
         if !success {
-            if kDebugLog { print("Failed to set audio session category.  Error: \(error!)") }
+            if kDebugLog {
+                if let e = error {
+                    print("Failed to set audio session category.  Error: \(e)")
+                }
+            }
         }
         
         // Set audioSession as active
@@ -100,12 +104,12 @@ class StationsViewController: UIViewController {
         }
         
     }
-    
+
     //*****************************************************************
     // MARK: - Setup UI Elements
     //*****************************************************************
     
-    @objc func setupPullToRefresh() {
+    func setupPullToRefresh() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedStringKey.foregroundColor:UIColor.white])
         self.refreshControl.backgroundColor = UIColor.black
@@ -114,12 +118,12 @@ class StationsViewController: UIViewController {
         self.tableView.addSubview(refreshControl)
     }
     
-    @objc func createNowPlayingAnimation() {
+    func createNowPlayingAnimation() {
         nowPlayingAnimationImageView.animationImages = AnimationFrames.createFrames()
         nowPlayingAnimationImageView.animationDuration = 0.7
     }
     
-    @objc func createNowPlayingBarButton() {
+    func createNowPlayingBarButton() {
         if self.navigationItem.rightBarButtonItem == nil {
             let btn = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: self, action:#selector(StationsViewController.nowPlayingBarButtonPressed))
             btn.image = UIImage(named: "btn-nowPlaying")
@@ -127,7 +131,7 @@ class StationsViewController: UIViewController {
         }
     }
     
-    @objc func setupSearchController() {
+    func setupSearchController() {
         // Set the UISearchController
         searchController = UISearchController(searchResultsController: nil)
         
@@ -153,7 +157,7 @@ class StationsViewController: UIViewController {
             let searchTextField = searchController.searchBar.value(forKey: "_searchField") as! UITextField
             searchTextField.keyboardAppearance = UIKeyboardAppearance.dark
         }
-        
+
     }
     
     //*****************************************************************
@@ -163,7 +167,7 @@ class StationsViewController: UIViewController {
     @objc func nowPlayingBarButtonPressed() {
         tableView(self.tableView, didSelectRowAt: lastIndexPath)
     }
-    
+
     @IBAction func nowPlayingPressed(_ sender: UIButton) {
         tableView(self.tableView, didSelectRowAt: lastIndexPath)
     }
@@ -185,7 +189,7 @@ class StationsViewController: UIViewController {
     // MARK: - Load Station Data
     //*****************************************************************
     
-    @objc func loadStationsFromJSON() {
+    func loadStationsFromJSON() {
         
         // Turn on network indicator in status bar
         DispatchQueue.main.async {
@@ -244,7 +248,7 @@ extension StationsViewController: UITableViewDataSource {
         if searchController.isActive {
             return searchedStations.count
             
-            // The UISeachController is not active
+        // The UISeachController is not active
         } else {
             if stations.count == 0 {
                 return 1
@@ -281,7 +285,7 @@ extension StationsViewController: UITableViewDataSource {
                 let station = searchedStations[indexPath.row]
                 cell.configureStationCell(station)
                 
-                // The UISeachController is not active
+            // The UISeachController is not active
             } else {
                 let station = stations[indexPath.row]
                 cell.configureStationCell(station)
@@ -316,17 +320,17 @@ extension StationsViewController: UITableViewDelegate {
             // User clicked on row, load/reset station
             if searchController.isActive {
                 currentStation = searchedStations[indexPath.row]
-            } else {
+            } else if stations.count > 0 {
                 currentStation = stations[indexPath.row]
+
+                nowPlayingVC.currentStation = currentStation
+                nowPlayingVC.newStation = true
+
+                lastIndexPath = indexPath
+
+                controllersDict["NowPlayingViewController"] = nowPlayingVC
+                self.navigationController!.pushViewController(nowPlayingVC, animated: true)
             }
-            nowPlayingVC.currentStation = currentStation
-            nowPlayingVC.newStation = true
-            
-            lastIndexPath = indexPath
-            
-            controllersDict["NowPlayingViewController"] = nowPlayingVC
-            self.navigationController!.pushViewController(nowPlayingVC, animated: true)
-            
         } else {
             // User clicked on a now playing button
             if currentTrack != nil {
@@ -368,7 +372,7 @@ extension StationsViewController: NowPlayingViewControllerDelegate {
     func trackPlayingToggled(_ track: Track) {
         currentTrack?.isPlaying = track.isPlaying
     }
-    
+
 }
 
 //*****************************************************************
@@ -376,9 +380,9 @@ extension StationsViewController: NowPlayingViewControllerDelegate {
 //*****************************************************************
 
 extension StationsViewController: UISearchResultsUpdating {
-    
+
     func updateSearchResults(for searchController: UISearchController) {
-        
+    
         // Empty the searchedStations array
         searchedStations.removeAll(keepingCapacity: false)
         
