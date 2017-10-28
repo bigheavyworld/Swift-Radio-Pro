@@ -123,9 +123,9 @@ class SwiftRadioUITests: XCTestCase {
         assertPaused()
         playButton.tap()
         assertPlaying()
-        app.navigationBars["The Radiator"].buttons["Back"].tap()
+        app.navigationBars["The Radiator, 105.9FM WOMM-LP Burlington VT"].buttons["The Radiator"].tap()
         assertStationOnMenu(stationName)
-        app.navigationBars["The Radiator"].buttons["btn nowPlaying"].tap()
+        app.navigationBars["The Radiator"].children(matching: .button).element(boundBy: 1).tap()
         waitForStationToLoad()
         volume.adjust(toNormalizedSliderPosition: 0.2)
         volume.adjust(toNormalizedSliderPosition: 0.8)
@@ -136,6 +136,9 @@ class SwiftRadioUITests: XCTestCase {
         app.buttons["logo"].tap()
         assertAboutContent()
         app.buttons["Okay"].tap()
+        
+        
+        
     }
     
 }
