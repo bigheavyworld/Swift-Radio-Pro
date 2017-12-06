@@ -2,18 +2,18 @@
     "station":
     [
      {
-     "name": "The Radiator, 105.9FM WOMM-LP Burlington VT",
+     "name": "The Radiator, 105.9FM",
      "streamURL": "http://stream.theradiator.org/womm-lp_fm_128",
      "imageURL": "https://www.bigheavyworld.com/wp-content/uploads/2016/02/Radiator-Logo.png",
      "desc": "128kpbs",
-     "longDesc": "‘The Radiator’ is a nonprofit listener-supported media center generating and transmitting programming that fosters community awareness and civic engagement in Burlington VT"
+     "longDesc": "‘The Radiator’ is a nonprofit listener-supported media center generating and transmitting programming that fosters community awareness and civic engagement in Burlington, VT. The Radiator is operated by Big Heavy World, a volunteer-staffed music office that archives and promotes the music of Vermont, bigheavyworld.com."
      },
      {
-     "name": "The Radiator, 105.9FM WOMM-LP Burlington VT",
+     "name": "The Radiator, 105.9FM",
      "streamURL": "http://stream.theradiator.org/womm-lp_fm_256",
      "imageURL": "https://www.bigheavyworld.com/wp-content/uploads/2016/02/Radiator-Logo.png",
      "desc": "256kpbs",
-     "longDesc": "‘The Radiator’ is a nonprofit listener-supported media center generating and transmitting programming that fosters community awareness and civic engagement in Burlington VT"
+     "longDesc": "‘The Radiator’ is a nonprofit listener-supported media center generating and transmitting programming that fosters community awareness and civic engagement in Burlington, VT. The Radiator is operated by Big Heavy World, a volunteer-staffed music office that archives and promotes the music of Vermont, bigheavyworld.com."
      }
     ]
 }
