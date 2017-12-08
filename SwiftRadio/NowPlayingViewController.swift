@@ -510,6 +510,14 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
+    @IBAction func websiteButtonDidTouch(_ sender: UIButton) {
+        
+        // Use your own website here
+        if let url = URL(string: "https://www.bigheavyworld.com/playlists-calendar/") {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     @IBAction func infoButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "InfoDetail", sender: self)
     }
