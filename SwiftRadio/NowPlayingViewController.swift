@@ -525,7 +525,16 @@ class NowPlayingViewController: UIViewController {
     @IBAction func shareButtonPressed(_ sender: UIButton) {
         let songToShare = "I'm listening to \(track.title) on \(currentStation.stationName) via The Radiator"
         let activityViewController = UIActivityViewController(activityItems: [songToShare, track.artworkImage!], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
+        
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
+        {
+          present(activityViewController, animated: true, completion: nil)
+        }
+        else
+        {
+            activityViewController.popoverPresentationController?.sourceView = sender
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     //*****************************************************************
