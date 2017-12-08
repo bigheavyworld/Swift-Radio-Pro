@@ -126,7 +126,7 @@
 
 /* Begin PBXFileReference section */
 		1D3E102C1FDAD4A600C79238 /* The Radiator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Radiator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D3E102D1FDAD4A700C79238 /* SwiftRadio copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SwiftRadio copy-Info.plist"; path = "/Users/mrkahuna/OneDrive/BHW/Swift-Radio-Pro-BHW/SwiftRadio/SwiftRadio copy-Info.plist"; sourceTree = "<absolute>"; };
+		1D3E102D1FDAD4A700C79238 /* SwiftRadio copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SwiftRadio copy-Info.plist"; path = "/Users/mrkahuna/OneDrive/BHW/Swift-Radio-Pro-BHW/SwiftRadio copy-Info.plist"; sourceTree = "<absolute>"; };
 		1D4451201F6EDB7200A745E1 /* CustomAVPlayerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAVPlayerItem.swift; sourceTree = "<group>"; };
 		1D4451211F6EDB7200A745E1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1D8358AF1F89CB97006FC9E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -225,6 +225,7 @@
 		9409E10D1ABF6FE900312E2B = {
 			isa = PBXGroup;
 			children = (
+				1D3E102D1FDAD4A700C79238 /* SwiftRadio copy-Info.plist */,
 				B90086461BBE40AF00E5372C /* MediaPlayer.framework */,
 				9409E1181ABF6FEA00312E2B /* SwiftRadio */,
 				949BBB411ACCA2B6005B7C26 /* Libraries */,
@@ -264,7 +265,6 @@
 		9409E1191ABF6FEA00312E2B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1D3E102D1FDAD4A700C79238 /* SwiftRadio copy-Info.plist */,
 				9409E11A1ABF6FEA00312E2B /* Info.plist */,
 				94D260901B45D20000DE671C /* SwiftRadio-Settings.swift */,
 			);
