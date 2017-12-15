@@ -416,9 +416,9 @@
 			productReference = 2C5545BA1C1124DE00728469 /* SwiftRadioUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		9409E1151ABF6FEA00312E2B /* SwiftRadio */ = {
+		9409E1151ABF6FEA00312E2B /* The Radiatorold */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9409E1381ABF6FEA00312E2B /* Build configuration list for PBXNativeTarget "SwiftRadio" */;
+			buildConfigurationList = 9409E1381ABF6FEA00312E2B /* Build configuration list for PBXNativeTarget "The Radiatorold" */;
 			buildPhases = (
 				9409E1121ABF6FEA00312E2B /* Sources */,
 				9409E1131ABF6FEA00312E2B /* Frameworks */,
@@ -428,7 +428,7 @@
 			);
 			dependencies = (
 			);
-			name = SwiftRadio;
+			name = "The Radiatorold";
 			productName = RadioPro;
 			productReference = 9409E1161ABF6FEA00312E2B /* SwiftRadio.app */;
 			productType = "com.apple.product-type.application";
@@ -477,7 +477,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9409E1151ABF6FEA00312E2B /* SwiftRadio */,
+				9409E1151ABF6FEA00312E2B /* The Radiatorold */,
 				2C5545B91C1124DE00728469 /* SwiftRadioUITests */,
 				1D3E0FF11FDAD4A600C79238 /* The Radiator */,
 			);
@@ -640,7 +640,7 @@
 /* Begin PBXTargetDependency section */
 		2C5545C01C1124DE00728469 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9409E1151ABF6FEA00312E2B /* SwiftRadio */;
+			target = 9409E1151ABF6FEA00312E2B /* The Radiatorold */;
 			targetProxy = 2C5545BF1C1124DE00728469 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -941,7 +941,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9409E1381ABF6FEA00312E2B /* Build configuration list for PBXNativeTarget "SwiftRadio" */ = {
+		9409E1381ABF6FEA00312E2B /* Build configuration list for PBXNativeTarget "The Radiatorold" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9409E1391ABF6FEA00312E2B /* Debug */,
