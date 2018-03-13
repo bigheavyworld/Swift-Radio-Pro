@@ -523,7 +523,7 @@ class NowPlayingViewController: UIViewController {
     }
     
     @IBAction func shareButtonPressed(_ sender: UIButton) {
-        let songToShare = "I'm listening to \(track.title) on \(currentStation.stationName) via The Radiator"
+        let songToShare = "I'm listening to \(track.title) on \(currentStation.stationName) via The Radiator app: https://itunes.apple.com/us/app/the-radiator/id385611512?mt=8"
         let activityViewController = UIActivityViewController(activityItems: [songToShare, track.artworkImage!], applicationActivities: nil)
         
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
