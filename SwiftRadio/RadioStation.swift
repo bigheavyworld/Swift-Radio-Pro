@@ -12,44 +12,26 @@ import UIKit
 // Radio Station
 //*****************************************************************
 
-// Class inherits from NSObject so that you may easily add features
-// i.e. Saving favorite stations to CoreData, etc
+struct RadioStation: Codable {
+    
+    var name: String
+    var streamURL: String
+    var imageURL: String
+    var desc: String
+    var longDesc: String
+    
+    init(name: String, streamURL: String, imageURL: String, desc: String, longDesc: String = "") {
+        self.name = name
+        self.streamURL = streamURL
+        self.imageURL = imageURL
+        self.desc = desc
+        self.longDesc = longDesc
+    }
+}
 
-class RadioStation: NSObject {
+extension RadioStation: Equatable {
     
-    @objc var stationName     : String
-    @objc var stationStreamURL: String
-    @objc var stationImageURL : String
-    @objc var stationDesc     : String
-    @objc var stationLongDesc : String
-    
-    @objc init(name: String, streamURL: String, imageURL: String, desc: String, longDesc: String) {
-        self.stationName      = name
-        self.stationStreamURL = streamURL
-        self.stationImageURL  = imageURL
-        self.stationDesc      = desc
-        self.stationLongDesc  = longDesc
+    static func ==(lhs: RadioStation, rhs: RadioStation) -> Bool {
+        return (lhs.name == rhs.name) && (lhs.streamURL == rhs.streamURL) && (lhs.imageURL == rhs.imageURL) && (lhs.desc == rhs.desc) && (lhs.longDesc == rhs.longDesc)
     }
-    
-    // Convenience init without longDesc
-    @objc convenience init(name: String, streamURL: String, imageURL: String, desc: String) {
-        self.init(name: name, streamURL: streamURL, imageURL: imageURL, desc: desc, longDesc: "")
-    }
-    
-    //*****************************************************************
-    // MARK: - JSON Parsing into object
-    //*****************************************************************
-    
-    class func parseStation(_ stationJSON: JSON) -> (RadioStation) {
-        
-        let name      = stationJSON["name"].string ?? ""
-        let streamURL = stationJSON["streamURL"].string ?? ""
-        let imageURL  = stationJSON["imageURL"].string ?? ""
-        let desc      = stationJSON["desc"].string ?? ""
-        let longDesc  = stationJSON["longDesc"].string ?? ""
-        
-        let station = RadioStation(name: name, streamURL: streamURL, imageURL: imageURL, desc: desc, longDesc: longDesc)
-        return station
-    }
-
 }

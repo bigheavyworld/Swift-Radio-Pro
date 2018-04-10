@@ -30,21 +30,19 @@ class AboutViewController: UIViewController {
         let subject = "From Swift Radio App"
         let messageBody = ""
         
-        let configuredMailComposeViewController = configureMailComposeViewController(receipients, subject: subject, messageBody: messageBody)
+        let configuredMailComposeViewController = configureMailComposeViewController(recepients: receipients, subject: subject, messageBody: messageBody)
         
         if canSendMail() {
-            self.present(configuredMailComposeViewController, animated: true, completion: nil)
+            present(configuredMailComposeViewController, animated: true, completion: nil)
         } else {
             showSendMailErrorAlert()
         }
     }
     
     @IBAction func websiteButtonDidTouch(_ sender: UIButton) {
-        
         // Use your own website here
-        if let url = URL(string: "https://bigheavyworld.com") {
-            UIApplication.shared.openURL(url)
-        }
+        guard let url = URL(string: "https://bigheavyworld.com") else { return }
+        UIApplication.shared.openURL(url)
     }
 
   }
@@ -59,11 +57,11 @@ extension AboutViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
     
-    @objc func canSendMail() -> Bool {
+    func canSendMail() -> Bool {
         return MFMailComposeViewController.canSendMail()
     }
     
-    @objc func configureMailComposeViewController(_ recepients: [String], subject: String, messageBody: String) -> MFMailComposeViewController {
+    func configureMailComposeViewController(recepients: [String], subject: String, messageBody: String) -> MFMailComposeViewController {
         
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
@@ -75,10 +73,10 @@ extension AboutViewController: MFMailComposeViewControllerDelegate {
         return mailComposerVC
     }
     
-    @objc func showSendMailErrorAlert() {
+    func showSendMailErrorAlert() {
         let sendMailErrorAlert = UIAlertController(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        
+
         sendMailErrorAlert.addAction(cancelAction)
         present(sendMailErrorAlert, animated: true, completion: nil)
     }

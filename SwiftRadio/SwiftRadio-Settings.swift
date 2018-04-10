@@ -6,13 +6,6 @@
 //  Copyright (c) 2015 MatthewFecher.com. All rights reserved.
 //
 
-
-enum CoverApi : String {
-    case iTunes = "iTunes"
-    case lastFm = "LastFm"
-    case spotify = "Spotify"
-}
-
 import Foundation
 
 //**************************************
@@ -29,7 +22,7 @@ let kDebugLog = true
 // If this is set to "true", it will use the JSON file in the app
 // Set it to "false" to use the JSON file at the stationDataURL
 
-let useLocalStations = false
+let useLocalStations = true
 let stationDataURL   = "https://www.bigheavyworld.com/public/wp-content/stations.json"
 
 //**************************************
@@ -40,17 +33,8 @@ let stationDataURL   = "https://www.bigheavyworld.com/public/wp-content/stations
 let searchable = false
 
 //**************************************
-// LASTFM API
+// NEXT / PREVIOUS BUTTONS
 //**************************************
 
-// Use LastFM, iTunes API or Spotify API 
-// Spotify has use restrictions, please read https://developer.spotify.com/developer-terms-of-use/
-let coverApi = CoverApi.iTunes
-let useLastFM = false
-
-// IF YOU USE LASTFM, PLEASE USE YOUR OWN KEY
-// Visit: http://www.last.fm/api
-
-let lastFmApiKey    = ""
-let lastFmApiSecret = ""
-
+// Set this to "false" to show the next/previous player buttons
+let hideNextPreviousButtons = true

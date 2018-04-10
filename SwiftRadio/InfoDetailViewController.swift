@@ -16,9 +16,9 @@ class InfoDetailViewController: UIViewController {
     @IBOutlet weak var stationLongDescTextView: UITextView!
     @IBOutlet weak var okayButton: UIButton!
     
-    @objc var currentStation: RadioStation!
-    @objc var downloadTask: URLSessionDownloadTask?
-    
+    var currentStation: RadioStation!
+    var downloadTask: URLSessionDownloadTask?
+
     //*****************************************************************
     // MARK: - ViewDidLoad
     //*****************************************************************
@@ -29,7 +29,7 @@ class InfoDetailViewController: UIViewController {
         setupStationText()
         setupStationLogo()
     }
-    
+
     deinit {
         // Be a good citizen.
         downloadTask?.cancel()
@@ -40,34 +40,34 @@ class InfoDetailViewController: UIViewController {
     // MARK: - UI Helpers
     //*****************************************************************
     
-    @objc func setupStationText() {
+    func setupStationText() {
         
         // Display Station Name & Short Desc
-        stationNameLabel.text = currentStation.stationName
-        stationDescLabel.text = currentStation.stationDesc
+        stationNameLabel.text = currentStation.name
+        stationDescLabel.text = currentStation.desc
         
         // Display Station Long Desc
-        if currentStation.stationLongDesc == "" {
+        if currentStation.longDesc == "" {
             loadDefaultText()
         } else {
-            stationLongDescTextView.text = currentStation.stationLongDesc
+            stationLongDescTextView.text = currentStation.longDesc
         }
     }
     
-    @objc func loadDefaultText() {
+    func loadDefaultText() {
         // Add your own default ext
         stationLongDescTextView.text = "You are listening to Swift Radio. This is a sweet open source project. Tell your friends, swiftly!"
     }
     
-    @objc func setupStationLogo() {
+    func setupStationLogo() {
         
         // Display Station Image/Logo
-        let imageURL = currentStation.stationImageURL
+        let imageURL = currentStation.imageURL
         
         if imageURL.range(of: "http") != nil {
             // Get station image from the web, iOS should cache the image
-            if let url = URL(string: currentStation.stationImageURL) {
-                downloadTask = stationImageView.loadImageWithURL(url: url) { _ in }
+            if let url = URL(string: currentStation.imageURL) {
+                stationImageView.loadImageWithURL(url: url) { _ in }
             }
             
         } else if imageURL != "" {
@@ -92,4 +92,3 @@ class InfoDetailViewController: UIViewController {
     }
     
 }
-

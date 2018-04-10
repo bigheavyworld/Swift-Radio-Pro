@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,16 +21,21 @@
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="142-uQ-lyQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0rh-Eh-tPg">
-                                <rect key="frame" x="67" y="269" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="yiw-CN-vnc">
+                                <rect key="frame" x="37" y="187" width="300" height="293"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="7Ne-Bm-iQL"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="jJO-YV-uPc"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="142-uQ-lyQ" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="2XD-li-Ult"/>
+                            <constraint firstItem="yiw-CN-vnc" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ZhV-2A-AQ9"/>
                             <constraint firstItem="142-uQ-lyQ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mOU-OW-ZGC"/>
                             <constraint firstItem="142-uQ-lyQ" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="qlD-89-AfJ"/>
+                            <constraint firstItem="yiw-CN-vnc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="r7u-yy-47J"/>
                             <constraint firstItem="142-uQ-lyQ" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="rN9-Xk-8n7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>

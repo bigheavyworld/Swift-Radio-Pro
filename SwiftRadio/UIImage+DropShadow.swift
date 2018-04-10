@@ -11,7 +11,7 @@ import UIKit
 extension UIImageView {
 
     // APPLY DROP SHADOW
-    @objc func applyShadow() {
+    func applyShadow() {
 		let layer           = self.layer
 		layer.shadowColor   = UIColor.black.cgColor
 		layer.shadowOffset  = CGSize(width: 0, height: 1)
