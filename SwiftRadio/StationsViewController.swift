@@ -286,7 +286,9 @@ class StationsViewController: UIViewController {
         var nowPlayingInfo = [String : Any]()
         
         if let image = track?.artworkImage {
-            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: image)
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size, requestHandler: { size -> UIImage in
+                return image
+            })
         }
         
         if let artist = track?.artist {

@@ -42,7 +42,7 @@ class AboutViewController: UIViewController {
     @IBAction func websiteButtonDidTouch(_ sender: UIButton) {
         // Use your own website here
         guard let url = URL(string: "https://bigheavyworld.com") else { return }
-        UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
   }

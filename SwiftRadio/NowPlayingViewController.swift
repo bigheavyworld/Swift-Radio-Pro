@@ -284,7 +284,7 @@ class NowPlayingViewController: UIViewController {
         // Setup ImageView
         nowPlayingImageView = UIImageView(image: UIImage(named: "NowPlayingBars-3"))
         nowPlayingImageView.autoresizingMask = []
-        nowPlayingImageView.contentMode = UIViewContentMode.center
+        nowPlayingImageView.contentMode = UIView.ContentMode.center
         
         // Create Animation
         nowPlayingImageView.animationImages = AnimationFrames.createFrames()
@@ -321,7 +321,7 @@ class NowPlayingViewController: UIViewController {
         let radioShoutout = "I'm listening to \(currentStation.name) via The Radiator 105.9FM Burlington VT"
         let shareImage = ShareImageGenerator(radioShoutout: radioShoutout, track: currentTrack).generate()
         let activityViewController = UIActivityViewController(activityItems: [radioShoutout, shareImage], applicationActivities: nil)
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivityType?, completed:Bool, returnedItems:[Any]?, error: Error?) in
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed:Bool, returnedItems:[Any]?, error: Error?) in
             if completed {
                 // do something on completion if you want
             }
