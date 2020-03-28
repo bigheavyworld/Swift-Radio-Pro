@@ -431,7 +431,10 @@ open class FRadioPlayer: NSObject {
         case .ended:
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { break }
             let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
-            DispatchQueue.main.async { options.contains(.shouldResume) ? self.play() : self.pause() }
+            DispatchQueue.main.async { options.contains(.shouldResume) ? self.play()
+                : self.pause() }
+        @unknown default:
+            break
         }
     }
     
