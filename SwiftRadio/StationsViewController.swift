@@ -35,6 +35,7 @@ class StationsViewController: UIViewController {
     }
     
     var searchedStations = [RadioStation]()
+    var previousStation: RadioStation?
     
     // MARK: - UI
     
@@ -185,7 +186,8 @@ class StationsViewController: UIViewController {
         if let indexPath = (sender as? IndexPath) {
             // User clicked on row, load/reset station
             radioPlayer.station = searchController.isActive ? searchedStations[indexPath.row] : stations[indexPath.row]
-            newStation = true
+            newStation = radioPlayer.station != previousStation
+            previousStation = radioPlayer.station
         } else {
             // User clicked on Now Playing button
             newStation = false
@@ -385,9 +387,17 @@ extension StationsViewController: UISearchResultsUpdating {
         // Hide the UISearchController
         tableView.setContentOffset(CGPoint(x: 0.0, y: searchController.searchBar.frame.size.height), animated: false)
         
-        // Set a black keyborad for UISearchController's TextField
-        let searchTextField = searchController.searchBar.value(forKey: "_searchField") as! UITextField
-        searchTextField.keyboardAppearance = UIKeyboardAppearance.dark
+        // iOS 13 or greater
+         if   #available(iOS 13.0, *) {
+             // Make text readable in black searchbar
+             searchController.searchBar.barStyle = .black
+             // Set a black keyborad for UISearchController's TextField
+             let searchTextField = searchController.searchBar.searchTextField
+             searchTextField.keyboardAppearance = UIKeyboardAppearance.dark
+         } else {
+             let searchTextField = searchController.searchBar.value(forKey: "_searchField") as! UITextField
+             searchTextField.keyboardAppearance = UIKeyboardAppearance.dark
+         }
     }
 
     func updateSearchResults(for searchController: UISearchController) {
