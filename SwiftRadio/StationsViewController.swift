@@ -408,14 +408,6 @@ extension StationsViewController: UISearchResultsUpdating {
         searchedStations = stations.filter { $0.name.range(of: searchText, options: [.caseInsensitive]) != nil }
         self.tableView.reloadData()
     }
-
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else { return }
-        
-        searchedStations.removeAll(keepingCapacity: false)
-        searchedStations = stations.filter { $0.name.range(of: searchText, options: [.caseInsensitive]) != nil }
-        self.tableView.reloadData()
-    }
 }
 
 //*****************************************************************

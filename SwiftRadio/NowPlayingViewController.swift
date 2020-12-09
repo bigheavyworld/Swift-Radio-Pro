@@ -83,6 +83,7 @@ class NowPlayingViewController: UIViewController {
         
         // Setup AirPlayButton
         setupAirPlayButton()
+        
         // Hide / Show Next/Previous buttons
         previousButton.isHidden = hideNextPreviousButtons
         nextButton.isHidden = hideNextPreviousButtons
@@ -345,7 +346,8 @@ class NowPlayingViewController: UIViewController {
         performSegue(withIdentifier: "InfoDetail", sender: self)
     }
     
-    @IBAction func shareButtonPressed(_ sender: UIButton) {        
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        
         let radioShoutout = "I'm listening to \(currentStation.name) via Swift Radio Pro"
         let shareImage = ShareImageGenerator(radioShoutout: radioShoutout, track: currentTrack).generate()
         
@@ -353,7 +355,7 @@ class NowPlayingViewController: UIViewController {
         activityViewController.popoverPresentationController?.sourceRect = CGRect(x: view.center.x, y: view.center.y, width: 0, height: 0)
         activityViewController.popoverPresentationController?.sourceView = view
         activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-
+        
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed:Bool, returnedItems:[Any]?, error: Error?) in
             if completed {
                 // do something on completion if you want
