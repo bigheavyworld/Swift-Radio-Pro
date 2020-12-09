@@ -43,7 +43,9 @@ class SwiftRadioUITests: XCTestCase {
     }
     
     func assertStationsPresent() {
+
         let numStations:UInt = 2
+
         XCTAssertEqual(stations.count, Int(numStations))
         
         let texts = stations.staticTexts.count

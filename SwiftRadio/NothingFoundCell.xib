@@ -26,6 +26,12 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="t6R-Cw-i7I" secondAttribute="trailing" constant="16" id="900-k0-JL0"/>
+                    <constraint firstItem="t6R-Cw-i7I" firstAttribute="top" secondItem="H9t-Kb-LX9" secondAttribute="topMargin" id="SJ5-A7-yNL"/>
+                    <constraint firstItem="t6R-Cw-i7I" firstAttribute="leading" secondItem="H9t-Kb-LX9" secondAttribute="leadingMargin" constant="16" id="p4l-vK-8YY"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="t6R-Cw-i7I" secondAttribute="bottom" id="s0q-F7-Ur1"/>
+                </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="299" y="254"/>
         </tableViewCell>

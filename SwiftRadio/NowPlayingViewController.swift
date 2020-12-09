@@ -8,6 +8,8 @@
 
 import UIKit
 import MediaPlayer
+import AVKit
+
 
 //*****************************************************************
 // NowPlayingViewControllerDelegate
@@ -39,6 +41,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var volumeParentView: UIView!
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var airPlayView: UIView!
     
     // MARK: - Properties
     
@@ -78,6 +81,8 @@ class NowPlayingViewController: UIViewController {
         // Setup volumeSlider
         setupVolumeSlider()
         
+        // Setup AirPlayButton
+        setupAirPlayButton()
         // Hide / Show Next/Previous buttons
         previousButton.isHidden = hideNextPreviousButtons
         nextButton.isHidden = hideNextPreviousButtons
@@ -107,8 +112,31 @@ class NowPlayingViewController: UIViewController {
         mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "slider-ball"), for: .normal)
     }
     
+    func setupAirPlayButton() {
+        guard !hideAirPlayButton else {
+            airPlayView.isHidden = true
+            return
+        }
+
+        if #available(iOS 11.0, *) {
+            let airPlayButton = AVRoutePickerView(frame: airPlayView.bounds)
+            airPlayButton.activeTintColor = globalTintColor
+            airPlayButton.tintColor = .gray
+            airPlayView.backgroundColor = .clear
+            airPlayView.addSubview(airPlayButton)
+        } else {
+            let airPlayButton = MPVolumeView(frame: airPlayView.bounds)
+            airPlayButton.showsVolumeSlider = false
+            airPlayView.backgroundColor = .clear
+            airPlayView.addSubview(airPlayButton)
+        }
+    }
+    
     func stationDidChange() {
         radioPlayer.radioURL = URL(string: currentStation.streamURL)
+        albumImageView.image = currentTrack.artworkImage
+        stationDescLabel.text = currentStation.desc
+        stationDescLabel.isHidden = currentTrack.artworkLoaded
         title = currentStation.name
     }
     
@@ -317,10 +345,15 @@ class NowPlayingViewController: UIViewController {
         performSegue(withIdentifier: "InfoDetail", sender: self)
     }
     
-    @IBAction func shareButtonPressed(_ sender: UIButton) {
-        let radioShoutout = "I'm listening to \(currentStation.name) via the iOS app https://apps.apple.com/us/app/the-radiator/id385611512"
+    @IBAction func shareButtonPressed(_ sender: UIButton) {        
+        let radioShoutout = "I'm listening to \(currentStation.name) via Swift Radio Pro"
         let shareImage = ShareImageGenerator(radioShoutout: radioShoutout, track: currentTrack).generate()
+        
         let activityViewController = UIActivityViewController(activityItems: [radioShoutout, shareImage], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(x: view.center.x, y: view.center.y, width: 0, height: 0)
+        activityViewController.popoverPresentationController?.sourceView = view
+        activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed:Bool, returnedItems:[Any]?, error: Error?) in
             if completed {
                 // do something on completion if you want

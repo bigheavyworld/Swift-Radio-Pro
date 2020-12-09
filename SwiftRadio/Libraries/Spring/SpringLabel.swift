@@ -42,12 +42,12 @@ open class SpringLabel: UILabel, Springable {
     public var animateFrom: Bool = false
     
     lazy private var spring : Spring = Spring(self)
-    
+
     override open func awakeFromNib() {
         super.awakeFromNib()
         self.spring.customAwakeFromNib()
     }
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         spring.customLayoutSubviews()
