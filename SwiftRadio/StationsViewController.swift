@@ -373,7 +373,7 @@ extension StationsViewController: UISearchResultsUpdating {
         guard searchable else { return }
         
         searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.sizeToFit()
         
         // Add UISearchController to the tableView
